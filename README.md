@@ -1,13 +1,13 @@
 ---
 title: "README.md"
 author: "YihanXiao"
-date: "6/28/2021"
+date: "8/2/2021"
 ---
 
 
-# **SPADE**: **Spa**tial **D**ata **E**xploration 
+# **STREAM**: **S**patial **t**ranscriptomics data **a**nalysis and **m**odeling
 
-**SPADE** is a protocol for processing spatial transcriptomic data. Currently, it supports
+**STREAM** is a protocol for processing spatial transcriptomic data. Currently, it supports
 [10x-genomics](https://www.10xgenomics.com/products/spatial-gene-expression). The flow could also take processed matrices or Seurat object from
 [FISH-seq](https://www.nature.com/articles/s41586-019-1049-y#Sec1), [STARmap](https://science.sciencemag.org/content/361/6400/eaat5691), [Slide-seq](https://science.sciencemag.org/content/363/6434/1463) and [Dbit-seq](https://www.cell.com/cell/pdf/S0092-8674(20)31390-8.pdf) [seq-scope](https://www.sciencedirect.com/science/article/pii/S0092867421006279?via%3Dihub) as input files. Processed matrices consist of count matrix and table with location information for each spots obtained from image processing. Besides，the meta file of cell-type annotations is optional.
 
