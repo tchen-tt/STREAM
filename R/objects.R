@@ -23,8 +23,10 @@ NULL
 #' @param python_Path python path, default as NULL.
 #' @param resolution resolution for leiden cluster
 #' @param verbose verbose
+#' @importFrom  Giotto installGiottoEnvironment
 #' @importFrom Giotto filterGiotto normalizeGiotto addStatistics adjustGiottoMatrix
 #' @importFrom Giotto runPCA runUMAP createNearestNetwork doLeidenCluster
+#' @import dplyr
 #' @rdname processing 
 #' @method processing giotto
 
@@ -93,22 +95,28 @@ setMethod("processing", signature = "giotto",
    
    if (save.plot){
      
-     pUMAP <- plotUMAP(gobject = object,cell_color = 'leiden', show_NN_network = F, point_size = 2.5, save_plot=FALSE, return_plot=TRUE)
+     pUMAP <- plotUMAP(gobject = object,cell_color = 'leiden', show_NN_network = F, point_size = 6000/dim(object@spatial_locs)[1], save_plot=FALSE, return_plot=TRUE)
      pUMAP <- pUMAP + scale_colour_npg(alpha=0.4)
      pUMAP <- pUMAP + theme(legend.text = element_text(color="azure4", size = 10, face = "bold"),legend.key.size = unit(0.25, "inches")) +
         guides(colour = guide_legend(override.aes = list(size = 4)))
-     ggsave(filename=paste0(outputFolder,"/UMAP.png"),plot = pUMAP)
+     ggsave(filename=paste0(outputFolder,"/UMAP.png"),plot = pUMAP,width = 8,height = 5)
      
-     markers_scarn=findMarkers_one_vs_all(gobject=object, method="scran", expression_values="normalized", cluster_column="leiden", min_genes=5)
-     markergenes_scran = unique(markers_scarn[, head(.SD, 8), by="cluster"][["genes"]])
+     markers_scarn = findMarkers_one_vs_all(gobject=object, method="scran", expression_values="normalized", cluster_column="leiden", min_genes=5)
+     markertable = markers_scarn %>% select("cluster","genes") %>%
+     mutate(num=seq(1,dim(markers_scarn)[1]))%>% 
+     group_by(cluster) %>% mutate(row_number = row_number(num))
+     markergenes_scran = unique(markertable$genes[which(markertable$row_number<=8)])
      heatmap = plotMetaDataHeatmap(object, expression_values="normalized", metadata_cols=c("leiden"), selected_genes=markergenes_scran, return_plot = TRUE,save_plot = FALSE)
      heatmap = heatmap + 
-        theme_classic() + #加框 
-        theme(axis.line = element_blank(), axis.ticks = element_blank(), axis.text.y = element_text(face = "bold"), axis.title.y = element_blank()) + 
+        theme_classic() + 
+        theme(axis.line = element_blank(), 
+              axis.ticks = element_blank(), 
+              axis.text.y = element_text(face = "bold",size = 4), 
+              axis.title.y = element_blank()) + 
         labs(x = "leiden cluster") + 
         coord_equal(ratio=2*length(unique(object@cell_metadata$leiden))/length(markergenes_scran))
-     ggsave(filename = paste0(outputFolder,"/scranMarkerHeatmap.png"),plot=heatmap )
-    }
+     ggsave(filename = paste0(outputFolder,"/scranMarkerHeatmap.png"),plot=heatmap,height = 8)
+   }
    object
 })
 
