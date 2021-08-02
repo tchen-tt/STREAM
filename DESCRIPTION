@@ -18,6 +18,6 @@ Encoding: UTF-8
 Collate: 'Features.R' 'Spatcluster.R' 'Visualize.r' 'cellphonedb.r'
         'generics.R' 'objects.R' 'zzz.R'
 NeedsCompilation: no
-Packaged: 2021-08-01 17:20:51 UTC; chentao
+Packaged: 2021-08-01 17:20:51 UTC; Yihan
 Author: YiHan Xiao [aut, cre],
   Wang lab [fnd]
