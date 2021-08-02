@@ -146,15 +146,15 @@ scHOTplot=function(scHOTobj,outputFolder=NULL,title="gene-gene coexpression",sav
     wcor_all <- wcor[genes, , drop = FALSE]
     p1=Scoreplot(x = scHOTobj@colData$x ,y = scHOTobj@colData$y,outputFolder = outputFolder,title = genes,value = wcor_all,legend = "scHOT score",savePlot =FALSE)
     #gene1
-    gene1 <- scHOTobj@assays@data[[1]][gene1,]
-    gene1.q95 <- quantile(gene1, 0.95)
-    gene1[gene1 > gene1.q95] <- gene1.q95
-    p2=Scoreplot(x = scHOTobj@colData$x ,y = scHOTobj@colData$y,outputFolder = outputFolder,value=gene1,legend="Expression",title=gene1,savePlot = FALSE)
+    vgene1 <- scHOTobj@assays@data[[1]][gene1,]
+    vgene1.q95 <- quantile(vgene1, 0.95)
+    vgene1[vgene1 > vgene1.q95] <- vgene1.q95
+    p2=Scoreplot(x = scHOTobj@colData$x ,y = scHOTobj@colData$y,outputFolder = outputFolder,value=vgene1,legend="Expression",title=gene1,savePlot = FALSE)
     #gene2
-    gene2 <- scHOTobj@assays@data[[1]][gene2,]
-    gene2.q95 <- quantile(gene2, 0.95)
-    gene2[gene2 > gene2.q95] <- gene2.q95
-    p3=Scoreplot(x = scHOTobj@colData$x ,y = scHOTobj@colData$y,outputFolder = outputFolder,value=gene2,legend="Expression",title=gene2,savePlot = FALSE)
+    vgene2 <- scHOTobj@assays@data[[1]][gene2,]
+    vgene2.q95 <- quantile(vgene2, 0.95)
+    vgene2[vgene2 > vgene2.q95] <- vgene2.q95
+    p3=Scoreplot(x = scHOTobj@colData$x ,y = scHOTobj@colData$y,outputFolder = outputFolder,value=vgene2,legend="Expression",title=gene2,savePlot = FALSE)
     p = plot_grid(p1, NULL, p2,p3, ncol = 2)
     p=p*theme_bw() * theme(panel.border = element_blank())
     if(savePlot){
