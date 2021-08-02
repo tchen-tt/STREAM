@@ -7,8 +7,8 @@ Maintainer: YiHan Xiao <1653008@tongji.edu.cn>
 Authors@R: c(
     person(given = "YiHan", family = "Xiao", email = "1653008@tongji.edu.cn", role = c("aut", "cre")),
     person("Wang lab", role = "fnd"))
-Depends: R (>= 3.6.1), methods
-Imports: Giotto, ggplot2, Seurat, SPARK, Rcpp, ggplot2, BiocParallel,
+Depends: R (>= 4.1.0), methods
+Imports: Giotto, ggplot2, Seurat, SPARK, Rcpp, BiocParallel,
         SingleCellExperiment, scHOT, scater, scran, dplyr, msigdbr,
         patchwork, ggsci, ggVennDiagram, cowplot, pheatmap, reticulate,
         magrittr

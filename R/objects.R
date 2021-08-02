@@ -72,7 +72,7 @@ setMethod("processing", signature = "giotto",
    
    object <- calculateHVG(gobject = object, 
                           method = "cov_groups",
-                          save_plot = FALSE,
+                          save_plot = save.plot,
                           return_plot = FALSE)
    
    if (!is.null(batch.columns))
@@ -92,11 +92,8 @@ setMethod("processing", signature = "giotto",
                              name = "leiden")
    
    if (save.plot){
-     hvgplot <- calculateHVG(gobject = object,method = "cov_groups",return_plot = TRUE, return_gobject = FALSE)
-     hvgplot = hvgplot+theme_bw()
-     ggsave(filename=paste0(outputFolder,"/HVG.png"),plot = hvgplot)
      
-     pUMAP <- plotUMAP(gobject = object,cell_color = 'leiden', show_NN_network = F, point_size = 2.5,save_plot=FALSE,return_plot=TRUE)
+     pUMAP <- plotUMAP(gobject = object,cell_color = 'leiden', show_NN_network = F, point_size = 2.5, save_plot=FALSE, return_plot=TRUE)
      pUMAP <- pUMAP + scale_colour_npg(alpha=0.4)
      pUMAP <- pUMAP + theme(legend.text = element_text(color="azure4", size = 10, face = "bold"),legend.key.size = unit(0.25, "inches")) +
         guides(colour = guide_legend(override.aes = list(size = 4)))
