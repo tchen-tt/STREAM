@@ -1,0 +1,23 @@
+Package: STREAM
+Version: 1.0.1
+Date: 2021-7-4
+Title: STREAM: Spatial Transcriptomics data Analyses and Modeling
+Description: Tool for spatial transcriptome data analysis
+Maintainer: YiHan Xiao <1653008@tongji.edu.cn>
+Authors@R: c(
+    person(given = "YiHan", family = "Xiao", email = "1653008@tongji.edu.cn", role = c("aut", "cre")),
+    person("Wang lab", role = "fnd"))
+Depends: R (>= 3.6.1), methods
+Imports: Giotto, ggplot2, Seurat, SPARK, Rcpp, ggplot2, BiocParallel,
+        SingleCellExperiment, scHOT, scater, scran, dplyr, msigdbr,
+        patchwork, ggsci, ggVennDiagram, cowplot, pheatmap, reticulate,
+        magrittr
+License: GPL-3
+RoxygenNote: 7.1.1
+Encoding: UTF-8
+Collate: 'Features.R' 'Spatcluster.R' 'Visualize.r' 'cellphonedb.r'
+        'generics.R' 'objects.R' 'zzz.R'
+NeedsCompilation: no
+Packaged: 2021-08-01 17:20:51 UTC; chentao
+Author: YiHan Xiao [aut, cre],
+  Wang lab [fnd]
