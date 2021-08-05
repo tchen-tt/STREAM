@@ -11,7 +11,7 @@ Depends: R (>= 4.1.0), methods
 Imports: Giotto, ggplot2, Seurat, SPARK, Rcpp, BiocParallel,
         SingleCellExperiment, scHOT, scater, scran, dplyr, msigdbr,
         patchwork, ggsci, ggVennDiagram, cowplot, pheatmap, reticulate,
-        magrittr
+        magrittr, clusterProfiler
 License: GPL-3
 RoxygenNote: 7.1.1
 Encoding: UTF-8
