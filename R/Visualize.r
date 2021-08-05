@@ -408,7 +408,8 @@ cellphondedb_dotplot <- function(Lcelltype = 1, Rcelltype = 2, interaction, top 
 #' @export cellphoneDBplot
 #' @rdname Visualize
 cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot=FALSE,...){
-  
+  if(is.null(outputFolder) & !is.null(object@instructions$save_dir)){
+    outputFolder=object@instructions$save_dir}
   #heatmap
   cellNetwork <- read.delim(interaction$countNetwork, header = TRUE, stringsAsFactors = FALSE)
   cellNetwork.spread <-  cellNetwork %>% tidyr::spread(key = TARGET, value = count)
