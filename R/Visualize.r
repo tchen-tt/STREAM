@@ -190,6 +190,10 @@ SEplot=function(diffgenes=diffgenes,
                  category="C2", 
                  Geneformat="gene_symbol",
                  ...){
+  
+  if(is.null(outputFolder)&!is.null(object@instructions$save_dir)){
+    outputFolder=object@instructions$save_dir}
+    
    method <- match.arg(method, choices = c("Binspect","silhouetteRank","SPARK","Integrated")) 
    if(method=="Integrated"){
      sparkres <- diffgenes[["sparkGenes"]]
@@ -203,8 +207,10 @@ SEplot=function(diffgenes=diffgenes,
        silhouetteRank=topsilgenes,
        Binspect=topbingenes,
        Spark=topsparkgenes)
-     vn=ggVennDiagram(X, label_alpha = 0,label_color = "white")
-     vn=vn*theme_bw()*theme(panel.border = element_blank())
+     vn = ggVennDiagram(X, label_alpha = 0,label_color = "white")
+     vn = vn + theme_bw() + theme(panel.border = element_blank(),panel.grid = element_blank(), 
+                                  axis.text = element_blank(), 
+                                  axis.ticks = element_blank())
      
      #filter spatialgenes
      ALL<-Reduce(union,X)
@@ -224,7 +230,7 @@ SEplot=function(diffgenes=diffgenes,
        p=Scoreplot(x = object@spatial_locs$sdimx ,y = object@spatial_locs$sdimy,outputFolder = outputFolder,title = gene,value = log2(object@raw_exprs[gene,]+1),legend = "log2(Expression)",savePlot =FALSE)
        return(p)})
      if(savePlot){
-       ggsave(paste(outputFolder,"/vnPlot.png",sep = ''),plot=vn,width=10,device=png,dpi=300)
+       ggsave(paste(outputFolder,"/vnPlot.png",sep = ''),plot=vn,width=10,device=png,dpi=300,scale=0.8)
      }
      
    }
@@ -273,9 +279,6 @@ SEplot=function(diffgenes=diffgenes,
    SEenrichdot <- SEenrichdot + theme(axis.text.y = element_text(size=6)) + 
       scale_x_continuous(expand = c(0, 0.1))
    if(savePlot){
-      if(is.null(outputFolder)&!is.null(object@instructions$save_dir)){
-         outputFolder=object@instructions$save_dir
-      }
      ggsave(paste(outputFolder,"/enrichDot.png",sep = ''),plot=SEenrichdot)
      ggsave(paste(outputFolder,"/SEgenes_",method,".png",sep = ''),plot=SE,width=10,height=8,device=png,dpi=300)
    }
