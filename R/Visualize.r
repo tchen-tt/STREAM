@@ -176,6 +176,7 @@ scHOTplot=function(scHOTobj,outputFolder=NULL,title="gene-gene coexpression",sav
 #' @param Species Species name, such as Homo sapiens or Mus musculus.
 #' @param ... other arguments 
 #' @import ggVennDiagram
+#' @importFrom clusterProfiler enricher 
 #' @import patchwork
 #' @import parallel
 #' @return ggplot object
@@ -191,7 +192,7 @@ SEplot=function(diffgenes=diffgenes,
                  Geneformat="gene_symbol",
                  ...){
   
-  if(is.null(outputFolder)&!is.null(object@instructions$save_dir)){
+  if(is.null(outputFolder) & !is.null(object@instructions$save_dir)){
     outputFolder=object@instructions$save_dir}
     
    method <- match.arg(method, choices = c("Binspect","silhouetteRank","SPARK","Integrated")) 
