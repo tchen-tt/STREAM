@@ -64,15 +64,10 @@ SpatCellphoneDB <- function(object,
   write.table(counts, file = paste0(outputFolder,"/counts.txt"), sep= "\t", quote = FALSE, row.names = FALSE)
   write.table(meta, file = paste0(outputFolder,"/meta.txt"), sep= '\t', quote = FALSE, row.names = FALSE)
   
-  if(is.null(cellphonedbPath)){
-    checkCellphonedb <- system("which cellphonedb", intern = TRUE)
-    if (length(checkCellphonedb) == 0) {
-      system("pip3 install cellphonedb")
-      #pyPath <- system("which python3", intern = TRUE)
-      #stop(paste0("No Cellphonedb in",pyPath,"\n Install cellphonedb first. \n More details in https://github.com/Teichlab/cellphonedb"))
-    }
-    cellphonedbPath=system("which cellphonedb", intern = TRUE)
-    }
+
+  
+  
+
   commands <- paste0(cellphonedbPath, " ")
   methods <- "method statistical_analysis "
   gene <- paste0("--counts-data ", Geneformat, " ")
@@ -100,12 +95,12 @@ SpatCellphoneDB <- function(object,
 cellphonedb_merge=function(interaction){
   cellphone.pvalues <- read.delim(interaction$pvalue, header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
   cellphone.pvalues.spread <- cellphone.pvalues %>%
-    gather(-(id_cp_interaction:is_integrin), key = "Interaction", value = "pvalue") %>%
+    tidyr::gather(-(id_cp_interaction:is_integrin), key = "Interaction", value = "pvalue") %>%
     select(interacting_pair, Interaction, pvalue)
   
   cellphone.sigMeans <- read.delim(interaction$singnificantMeans, header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
   cellphone.sigMeans.spread <- cellphone.sigMeans %>%
-    gather(-(id_cp_interaction:rank), key = "Interaction", value = "mean") %>%
+    tidyr::gather(-(id_cp_interaction:rank), key = "Interaction", value = "mean") %>%
     select(interacting_pair, Interaction, mean)
   
   cellphone.pvalues.spread$mean <- cellphone.sigMeans.spread$mean[match(paste0(cellphone.pvalues.spread$interacting_pair, cellphone.pvalues.spread$Interaction), paste0(cellphone.sigMeans.spread$interacting_pair, cellphone.sigMeans.spread$Interaction))]
