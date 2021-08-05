@@ -6,9 +6,9 @@
 \alias{QCplot}
 \alias{scHOTplot}
 \alias{SEplot}
-\alias{cellphoneDBplot}
 \alias{dot_plot}
 \alias{cellphondedb_dotplot}
+\alias{cellphoneDBplot}
 \title{spotPOPplot}
 \usage{
 spotPOPplot(
@@ -55,13 +55,6 @@ SEplot(
   ...
 )
 
-cellphoneDBplot(
-  interaction = interaction,
-  outputFolder = NULL,
-  save.plot = FALSE,
-  ...
-)
-
 dot_plot(
   interaction,
   selected_rows = NULL,
@@ -72,6 +65,13 @@ dot_plot(
 )
 
 cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 2, interaction, top = 10)
+
+cellphoneDBplot(
+  interaction = interaction,
+  outputFolder = NULL,
+  save.plot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{A giotto object}
@@ -112,8 +112,6 @@ cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 2, interaction, top = 10)
 
 \item{interaction}{A list out of cellphoneDB calculation.}
 
-\item{save.plot}{directly save the plot [boolean]}
-
 \item{selected_rows}{selected clusters of cellphoneDB results}
 
 \item{selected_columns}{selected genepairs of cellphoneDB results}
@@ -122,11 +120,13 @@ cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 2, interaction, top = 10)
 
 \item{pvalues_separator}{separator of p-value file}
 
-\item{Lcelltype}{ligand cell type}
+\item{Lcelltype}{}
 
-\item{Rcelltype}{Receptor cell type}
+\item{Rcelltype}{}
 
 \item{top}{Number of top pairs to plot.}
+
+\item{save.plot}{directly save the plot [boolean].}
 }
 \value{
 ggplot object

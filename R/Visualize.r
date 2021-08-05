@@ -193,8 +193,8 @@ SEplot=function(diffgenes=diffgenes,
                  Geneformat="gene_symbol",
                  ...){
   if(is.null(Species)) {
-    message("Species must in: \n")
-    msigdbr::msigdbr_species()
+    message("Species must be in: \n")
+    print(msigdbr::msigdbr_species())
     stop("Species names needed")
   }
   
@@ -296,37 +296,6 @@ SEplot=function(diffgenes=diffgenes,
    }
 }
 
-#' @title cellphoneDBplot
-#' @param interaction A list out of cellphoneDB calculation.
-#' @param Lcelltype 
-#' @param Rcelltype 
-#' @param top Number of top pairs to plot.
-#' @param outputFolder Output folder to save results.
-#' @param save.plot directly save the plot [boolean].
-#' @param ... other arguments 
-#' @importFrom  pheatmap pheatmap
-#' @export cellphoneDBplot
-#' @rdname Visualize
-cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot=FALSE,...){
-  
-  #heatmap
-  cellNetwork <- read.delim(interaction$countNetwork, header = TRUE, stringsAsFactors = FALSE)
-  cellNetwork.spread <-  cellNetwork %>% spread(key = TARGET, value = count)
-  rownames(cellNetwork.spread) <- cellNetwork.spread$SOURCE
-  cellNetwork.spread <- cellNetwork.spread[, !(colnames(cellNetwork.spread) %in% "SOURCE")]
-  if (save.plot){
-    png(filename=paste0(outputFolder,"/SpatcellphoneDBheatmap.png"))
-    pheatmap::pheatmap(cellNetwork.spread, angle_col=0)
-    dev.off()
-  }else{pheatmap::pheatmap(cellNetwork.spread, angle_col=0)}
-  #dotplot
-  p2=cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 1:4, interaction = interaction,top = 5)
-  p2
-  if (save.plot){
-    ggsave(filename=paste0(outputFolder,"/SpatcellphoneDBdot.png"),plot = p2)
-  }
-}
-
 
 
 
@@ -424,5 +393,37 @@ cellphondedb_dotplot <- function(Lcelltype = 1, Rcelltype = 2, interaction, top 
   dot_plot(selected_rows = c(Rcelltype.Lcelltype.interaction, Lcelltype.Rcelltype.interaction), 
            selected_columns = c(Rcelltype.Lcelltype, Lcelltype.Rcelltype), 
            interaction=interaction)
+}
+
+#' @title cellphoneDBplot
+#' @param interaction A list out of cellphoneDB calculation.
+#' @param Lcelltype 
+#' @param Rcelltype 
+#' @param top Number of top pairs to plot.
+#' @param outputFolder Output folder to save results.
+#' @param save.plot directly save the plot [boolean].
+#' @param ... other arguments 
+#' @importFrom tidyr spread
+#' @importFrom  pheatmap pheatmap
+#' @export cellphoneDBplot
+#' @rdname Visualize
+cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot=FALSE,...){
+  
+  #heatmap
+  cellNetwork <- read.delim(interaction$countNetwork, header = TRUE, stringsAsFactors = FALSE)
+  cellNetwork.spread <-  cellNetwork %>% spread(key = TARGET, value = count)
+  rownames(cellNetwork.spread) <- cellNetwork.spread$SOURCE
+  cellNetwork.spread <- cellNetwork.spread[, !(colnames(cellNetwork.spread) %in% "SOURCE")]
+  if (save.plot){
+    png(filename=paste0(outputFolder,"/SpatcellphoneDBheatmap.png"))
+    pheatmap::pheatmap(cellNetwork.spread, angle_col=0)
+    dev.off()
+  }else{pheatmap::pheatmap(cellNetwork.spread, angle_col=0)}
+  #dotplot
+  p2=cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 1:4, interaction = interaction,top = 5)
+  p2
+  if (save.plot){
+    ggsave(filename=paste0(outputFolder,"/SpatcellphoneDBdot.png"),plot = p2)
+  }
 }
 
