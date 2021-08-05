@@ -411,7 +411,7 @@ cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot
   
   #heatmap
   cellNetwork <- read.delim(interaction$countNetwork, header = TRUE, stringsAsFactors = FALSE)
-  cellNetwork.spread <-  cellNetwork %>% spread(key = TARGET, value = count)
+  cellNetwork.spread <-  cellNetwork %>% tidyr::spread(key = TARGET, value = count)
   rownames(cellNetwork.spread) <- cellNetwork.spread$SOURCE
   cellNetwork.spread <- cellNetwork.spread[, !(colnames(cellNetwork.spread) %in% "SOURCE")]
   if (save.plot){
