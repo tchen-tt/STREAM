@@ -177,7 +177,6 @@ scHOTplot=function(scHOTobj,outputFolder=NULL,title="gene-gene coexpression",sav
 #' @param ... other arguments 
 #' @import ggVennDiagram
 #' @importFrom clusterProfiler enricher 
-#' @importFrom enrichplot dotplot
 #' @import patchwork
 #' @import parallel
 #' @return ggplot object
@@ -276,7 +275,7 @@ SEplot=function(diffgenes=diffgenes,
    enrich <- enricher(gene = final_spatialgenes, TERM2GENE = msigdbr_t2g)
    
    SE <- plot_grid(spatlist[[1]],spatlist[[2]],spatlist[[3]],spatlist[[4]],ncol=2)
-   SEenrichdot <- dotplot(enrich,x="GeneRatio",color="p.adjust",showCategory=10,
+   SEenrichdot <- clusterProfiler::dotplot(enrich,x="GeneRatio",color="p.adjust",showCategory=10,
                        size=NULL,split=NULL,font.size=12,title="KEGG of SEgenes")
    SEenrichdot <- SEenrichdot + theme(axis.text.y = element_text(size=6)) + 
       scale_x_continuous(expand = c(0, 0.1))
