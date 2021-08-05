@@ -415,12 +415,13 @@ cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot
   cellNetwork.spread <-  cellNetwork %>% tidyr::spread(key = TARGET, value = count)
   rownames(cellNetwork.spread) <- cellNetwork.spread$SOURCE
   cellNetwork.spread <- cellNetwork.spread[, !(colnames(cellNetwork.spread) %in% "SOURCE")]
-  if (save.plot){
-    print("nihao")
+  if (save.plot) {
     png(filename=paste0(outputFolder,"/SpatcellphoneDBheatmap.png"))
     pheatmap::pheatmap(cellNetwork.spread, angle_col=0)
     dev.off()
-  }else{pheatmap::pheatmap(cellNetwork.spread, angle_col=0)}
+  } else {
+    pheatmap::pheatmap(cellNetwork.spread, angle_col=0)
+    }
   #dotplot
   p2=cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 1:4, interaction = interaction,top = 5)
   p2
