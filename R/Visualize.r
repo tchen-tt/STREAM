@@ -173,10 +173,11 @@ scHOTplot=function(scHOTobj,outputFolder=NULL,title="gene-gene coexpression",sav
 #' @param savePlot Boolean, whether to save plot.
 #' @param category MSigDB collection abbreviation, such as H or C1.
 #' @param Geneformat Format of gene name in count matrix, one of "ensembl_gene", "gene_symbol".
-#' @param Species Species name, such as Homo sapiens or Mus musculus.
+#' @param Species Species name, more details in \code{\link[msigdbr]{msigdbr_species}}
 #' @param ... other arguments 
 #' @import ggVennDiagram
-#' @importFrom clusterProfiler enricher 
+#' @import msigdbr 
+#' @importFrom clusterProfiler enricher dotplot
 #' @import patchwork
 #' @import parallel
 #' @return ggplot object
@@ -187,10 +188,15 @@ SEplot=function(diffgenes=diffgenes,
                  method="Integrated", 
                  outputFolder=NULL, 
                  savePlot=TRUE,
-                 Species="human",
+                 Species=NULL,
                  category="C2", 
                  Geneformat="gene_symbol",
                  ...){
+  if(is.null(Species)) {
+    message("Species must in: \n")
+    msigdbr::msigdbr_species()
+    stop("Species names needed")
+  }
   
   if(is.null(outputFolder) & !is.null(object@instructions$save_dir)){
     outputFolder=object@instructions$save_dir}
@@ -240,6 +246,7 @@ SEplot=function(diffgenes=diffgenes,
      spatlist=mclapply(diffgenes[["binspectGenes"]]$gene[1:4],function(gene){
        p=Scoreplot(x = object@spatial_locs$sdimx ,y = object@spatial_locs$sdimy,outputFolder = outputFolder,title = gene,value = log2(object@raw_exprs[gene,]+1),legend = "log2(Expression)",savePlot =FALSE)
        return(p)})
+     final_spatialgenes=diffgenes[["binspectGenes"]]$genes[1:topgenes]
    }
    
    if(method=="silhouetteRank"){
@@ -247,6 +254,8 @@ SEplot=function(diffgenes=diffgenes,
      spatlist=mclapply(diffgenes[["silhouetteGenes"]]$genes[1:4],function(gene){
        p=Scoreplot(x = object@spatial_locs$sdimx ,y = object@spatial_locs$sdimy,outputFolder = outputFolder,title = gene,value = log2(object@raw_exprs[gene,]+1),legend = "log2(Expression)",savePlot =FALSE)
        return(p)})
+     final_spatialgenes=diffgenes[["silhouetteGenes"]]$genes[1:topgenes]
+     
    }
    
    if(method=="SPARK"){
@@ -256,6 +265,7 @@ SEplot=function(diffgenes=diffgenes,
      spatlist=mclapply(spark_spatialgenes$genes[1:4], function(gene){
        p=Scoreplot(x = object@spatial_locs$sdimx ,y = object@spatial_locs$sdimy,outputFolder = outputFolder,title = gene,value = log2(object@raw_exprs[gene,]+1),legend = "log2(Expression)",savePlot =FALSE)
        return(p)})
+     final_spatialgenes=diffgenes[["sparkGenes"]]$genes[1:topgenes]
    }
    
    if(method=="spatialDE"){
@@ -263,6 +273,7 @@ SEplot=function(diffgenes=diffgenes,
      spatlist=mclapply(diffgenes[["spatialDE"]]$genes[1:4], function(gene){
        p=Scoreplot(x = object@spatial_locs$sdimx ,y = object@spatial_locs$sdimy,outputFolder = outputFolder,title = gene,value = log2(object@raw_exprs[gene,]+1),legend = "log2(Expression)",savePlot =FALSE)
        return(p)})
+     final_spatialgenes=diffgenes[["spatialDE"]]$genes[1:topgenes]
    }
    
    gene_sets = msigdbr(species = Species,category = category)

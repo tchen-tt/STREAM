@@ -49,7 +49,7 @@ SEplot(
   method = "Integrated",
   outputFolder = NULL,
   savePlot = TRUE,
-  Species = "human",
+  Species = NULL,
   category = "C2",
   Geneformat = "gene_symbol",
   ...
@@ -104,7 +104,7 @@ cellphondedb_dotplot(Lcelltype = 1, Rcelltype = 2, interaction, top = 10)
 
 \item{method}{A character to select the SE method for downstream analysis, one of "Binspect","silhouetteRank","SPARK","Integrated".}
 
-\item{Species}{Species name, such as Homo sapiens or Mus musculus.}
+\item{Species}{Species name, more details in \code{\link[msigdbr]{msigdbr_species}}}
 
 \item{category}{MSigDB collection abbreviation, such as H or C1.}
 
