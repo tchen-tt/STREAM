@@ -408,14 +408,15 @@ cellphondedb_dotplot <- function(Lcelltype = 1, Rcelltype = 2, interaction, top 
 #' @export cellphoneDBplot
 #' @rdname Visualize
 cellphoneDBplot = function(interaction=interaction, outputFolder=NULL, save.plot=FALSE,...){
-  if(is.null(outputFolder) & !is.null(object@instructions$save_dir)){
-    outputFolder=object@instructions$save_dir}
+  if(is.null(outputFolder)){
+    outputFolder=getwd()}
   #heatmap
   cellNetwork <- read.delim(interaction$countNetwork, header = TRUE, stringsAsFactors = FALSE)
   cellNetwork.spread <-  cellNetwork %>% tidyr::spread(key = TARGET, value = count)
   rownames(cellNetwork.spread) <- cellNetwork.spread$SOURCE
   cellNetwork.spread <- cellNetwork.spread[, !(colnames(cellNetwork.spread) %in% "SOURCE")]
   if (save.plot){
+    print("nihao")
     png(filename=paste0(outputFolder,"/SpatcellphoneDBheatmap.png"))
     pheatmap::pheatmap(cellNetwork.spread, angle_col=0)
     dev.off()
