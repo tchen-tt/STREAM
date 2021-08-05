@@ -23,8 +23,8 @@ NULL
 #' @param python_Path python path, default as NULL.
 #' @param resolution resolution for leiden cluster
 #' @param verbose verbose
-#' @importFrom  Giotto installGiottoEnvironment
-#' @importFrom Giotto filterGiotto normalizeGiotto addStatistics adjustGiottoMatrix
+#' @importFrom Giotto installGiottoEnvironment createGiottoInstructions
+#' @importFrom Giotto filterGiotto normalizeGiotto addStatistics adjustGiottoMatrix 
 #' @importFrom Giotto runPCA runUMAP createNearestNetwork doLeidenCluster
 #' @import dplyr
 #' @rdname processing 
@@ -122,7 +122,7 @@ setMethod("processing", signature = "giotto",
 
 
 #' @param object A SPARK object
-#' @param num.cores The number of cores to use, default 4.
+#' @param numCores The number of cores to use, default 4.
 #' @param verbose Output fitting information, default [FALSE]
 #' @param ... Other graguments in \code{\link[SPARK]{spark.vc}} 
 #' \code{\link[SPARK]{spark.test}}
@@ -134,14 +134,14 @@ setMethod("processing", signature = "giotto",
 
 setMethod("DiffGenes", signature = "SPARK",
           definition = function(object,
-                                num.cores = 4,
+                                numCores = 4,
                                 verbose = FALSE,
                                 ...) {
    object@lib_size <- Matrix::colSums(object@counts, na.rm = TRUE) # fast fast !!!!
    
    object <- spark.vc(object = object,
                       lib_size = object@lib_size,
-                      num_core = num.cores,
+                      num_core = numCores,
                       verbose = verbose)
    
    object <- spark.test(object = object,
@@ -159,7 +159,7 @@ setMethod("DiffGenes", signature = "SPARK",
 #' with kmeans and rank, defualt kmeans
 #' @param expression.value expression values to use, choice with 
 #' normalized, scaled and custom, defualt is normalized.
-#' @param num.cores The number of cores to use, default 5.
+#' @param numCores The number of cores to use, default 5.
 #' @param python_Path python path. Path in Giotto object will be used when no extra dir is provided.
 #' @param verbose verbosity of the function
 #' @return A list contain theree methods of differentin expression
@@ -174,7 +174,7 @@ setMethod("DiffGenes", signature = "giotto",
                                 maximum.distance.delaunay = 400,
                                 bin.method = "kmeans",
                                 expression.value = "normalized",
-                                num.cores = 5,
+                                numCores = 5,
                                 verbose = TRUE,
                                 python_Path=NULL,
                                 ...
@@ -200,7 +200,7 @@ setMethod("DiffGenes", signature = "giotto",
    print("spark")
    sparkObject <- GiottoToSpark(object = object)
    sparkGenes <- DiffGenes(object = sparkObject, 
-                           num.cores = num.cores, 
+                           numCores = numCores, 
                            ...)
    message("SpatialDE")
    count <- as.matrix(object@raw_exprs)
@@ -235,7 +235,7 @@ setMethod("DiffGenes", signature = "giotto",
 #' @param numCores The number of cores to use
 #' @param ... other parameters for scHOT function \code{\link[scHOT]{scHOT}}
 #' 
-#' @importFrom SingleCellExperiment SingleCellExperiment
+#' @importFrom SingleCellExperiment SingleCellExperiment logcounts
 #' @importFrom scater logNormCounts
 #' @importFrom scran fitTrendVar modelGeneVar
 #' @importFrom utils combn

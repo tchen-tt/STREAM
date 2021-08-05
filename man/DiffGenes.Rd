@@ -8,7 +8,7 @@
 \usage{
 DiffGenes(object, ...)
 
-\S4method{DiffGenes}{SPARK}(object, num.cores = 4, verbose = FALSE, ...)
+\S4method{DiffGenes}{SPARK}(object, numCores = 4, verbose = FALSE, ...)
 
 \S4method{DiffGenes}{giotto}(
   object,
@@ -16,7 +16,7 @@ DiffGenes(object, ...)
   maximum.distance.delaunay = 400,
   bin.method = "kmeans",
   expression.value = "normalized",
-  num.cores = 5,
+  numCores = 5,
   verbose = TRUE,
   python_Path = NULL,
   ...
@@ -28,7 +28,7 @@ DiffGenes(object, ...)
 \item{...}{Other graguments in \code{\link[SPARK]{spark.vc}} 
 \code{\link[SPARK]{spark.test}}}
 
-\item{num.cores}{The number of cores to use, default 5.}
+\item{numCores}{The number of cores to use, default 5.}
 
 \item{verbose}{verbosity of the function}
 

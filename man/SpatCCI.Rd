@@ -8,7 +8,7 @@
 SpatCellphoneDB(
   object,
   outputFolder = NULL,
-  num.cores = 4,
+  numCores = 4,
   Geneformat = "hgnc_symbol",
   cellphonedbPath = NULL,
   method = "kmeans",
@@ -22,7 +22,7 @@ cellphonedb_merge(interaction)
 
 \item{outputFolder}{Output folder to save results.}
 
-\item{num.cores}{The number of cores to use, default as 4.}
+\item{numCores}{The number of cores to use, default as 4.}
 
 \item{Geneformat}{Format of gene name in count matrix, one of "ensembl_gene", "gene_symbol".}
 

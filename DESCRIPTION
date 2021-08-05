@@ -15,8 +15,15 @@ Imports: Giotto, ggplot2, Seurat, SPARK, Rcpp, BiocParallel,
 License: GPL-3
 RoxygenNote: 7.1.1
 Encoding: UTF-8
-Collate: 'Features.R' 'Spatcluster.R' 'Visualize.r' 'cellphonedb.r'
-        'generics.R' 'objects.R' 'zzz.R'
+Collate: 
+    'Environment.R'
+    'Features.R'
+    'Spatcluster.R'
+    'Visualize.r'
+    'cellphonedb.r'
+    'generics.R'
+    'objects.R'
+    'zzz.R'
 NeedsCompilation: no
 Packaged: 2021-08-01 17:20:51 UTC; Yihan
 Author: YiHan Xiao [aut, cre],

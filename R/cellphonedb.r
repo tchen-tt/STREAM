@@ -1,7 +1,7 @@
 #' @title cellphoneDB for spot-population
 #' @param object A giotto object
 #' @param outputFolder Output folder to save results.
-#' @param num.cores The number of cores to use, default as 4.
+#' @param numCores The number of cores to use, default as 4.
 #' @param cellphonedbPath Path to launch cellphoneDB.
 #' @param Geneformat Format of gene name in count matrix, one of "ensembl_gene", "gene_symbol".
 #' @param method Spatial clustering method to annotate spots population, either "kmeans" or "HMRF".
@@ -11,7 +11,7 @@
 
 SpatCellphoneDB <- function(object, 
                             outputFolder=NULL,
-                            num.cores = 4,
+                            numCores = 4,
                             Geneformat = "hgnc_symbol",
                             cellphonedbPath = NULL,
                             method = "kmeans",
@@ -64,6 +64,15 @@ SpatCellphoneDB <- function(object,
   write.table(counts, file = paste0(outputFolder,"/counts.txt"), sep= "\t", quote = FALSE, row.names = FALSE)
   write.table(meta, file = paste0(outputFolder,"/meta.txt"), sep= '\t', quote = FALSE, row.names = FALSE)
   
+  if(is.null(cellphonedbPath)){
+    checkCellphonedb <- system("which cellphonedb", intern = TRUE)
+    if (length(checkCellphonedb) == 0) {
+      system("pip3 install cellphonedb")
+      #pyPath <- system("which python3", intern = TRUE)
+      #stop(paste0("No Cellphonedb in",pyPath,"\n Install cellphonedb first. \n More details in https://github.com/Teichlab/cellphonedb"))
+    }
+    cellphonedbPath=system("which cellphonedb", intern = TRUE)
+    }
   commands <- paste0(cellphonedbPath, " ")
   methods <- "method statistical_analysis "
   gene <- paste0("--counts-data ", Geneformat, " ")
@@ -71,7 +80,7 @@ SpatCellphoneDB <- function(object,
   count <- paste0(outputFolder, "/counts.txt ")
   metads <- paste0(outputFolder, "/meta.txt ")
   
-  thread <- paste0("--threads ", num.cores, " ")
+  thread <- paste0("--threads ", numCores, " ")
   output <- paste0("--output-path ", outputFolder)
   system(paste0(commands, methods, gene, metads, count, thread, output))
   system(paste0(commands, "plot heatmap_plot ", "--pvalues-path ", paste0(outputFolder, "/pvalues.txt", " "), 

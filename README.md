@@ -13,6 +13,8 @@ date: "8/2/2021"
 
 SPADE is composed of for following parts: **Initialization**, **Preprocessing**, **SE genes**, **Spatial Clustering**,  **CCI** and **Integration with scRNA seq data**. `Preprocessing` part includes steps of initialization, visualization, QC, normalization, filter, dimension reduction, clustering based on expression only, marker-gene identification, etc. `SE genes` part is for the genes with strong difference in spatial expression pattern, in which published methods including `SpatialDE`, `binspect`, `silhouetteRank`, `SPARK` are collected. `Spatial clustering` part investigates sub-domains for tissue heterogeneity through `HMRF` and `Neighborhood-Kmeans method`. `CCI` part aims to study the potential gene pair relation and cell-cell interaction in the space.
 
+## 
+
 ## Usage
 
 Initialize
