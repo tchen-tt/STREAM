@@ -177,6 +177,7 @@ scHOTplot=function(scHOTobj,outputFolder=NULL,title="gene-gene coexpression",sav
 #' @param ... other arguments 
 #' @import ggVennDiagram
 #' @importFrom clusterProfiler enricher 
+#' @importFrom enrichplot dotplot
 #' @import patchwork
 #' @import parallel
 #' @return ggplot object
