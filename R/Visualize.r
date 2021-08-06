@@ -69,14 +69,15 @@ QCplot=function(object,outputFolder=NULL,...){
    if(is.null(outputFolder)&!is.null(object@instructions$save_dir)){
       outputFolder=object@instructions$save_dir
    }
-    spotsvalue=log(colSums(as.matrix(object@raw_exprs)),base = 10)
-    genesvalue=log(apply(object@raw_exprs,2,function(x){length(which(x!=0))}),base =10)
-    mitoindex=grep("mt-",rownames(object@raw_exprs))
-    Nspots=ncol(object@raw_exprs)
+    raw_exprs=as.matrix(object@raw_exprs)
+    spotsvalue=log(colSums(raw_exprs),base = 10)
+    genesvalue=log(apply(raw_exprs,2,function(x){length(which(x!=0))}),base =10)
+    mitoindex=grep("mt-",rownames(raw_exprs))
+    Nspots=ncol(raw_exprs)
     if(length(mitoindex)<5) {
       print("Little mito genes detected")
       } else{
-       mitopercent=colSums(object@raw_exprs[mitoindex,])/colSums(object@raw_exprs)
+       mitopercent=colSums(raw_exprs[mitoindex,])/colSums(raw_exprs)
        g <- ggplot()
        g <- g + geom_point(aes(x=object@spatial_locs$sdimx,y=object@spatial_locs$sdimy,color=mitopercent),pch =20,size = 1500/Nspots)
        g <- g + labs(x = "x", y = "y", title="MT reads fraction")
