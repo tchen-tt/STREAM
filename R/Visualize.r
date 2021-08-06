@@ -72,7 +72,7 @@ QCplot=function(object,outputFolder=NULL,...){
     spotsvalue=log(colSums(object@raw_exprs),base = 10)
     genesvalue=log(apply(object@raw_exprs,2,function(x){length(which(x!=0))}),base =10)
     mitoindex=grep("mt-",rownames(object@raw_exprs))
-    if(length(k)<5) {
+    if(length(mitoindex)<5) {
       print("Little mito genes detected")
       } else{
        mitopercent=colSums(object@raw_exprs[mitoindex,])/colSums(object@raw_exprs)
