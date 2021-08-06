@@ -83,7 +83,7 @@ QCplot=function(object,outputFolder=NULL,...){
        g <- g + labs(x = "x", y = "y", title="MT reads fraction")
        g <- g + scale_color_gradientn(name = "fraction",colours = c(pal_simpsons("springfield")(10)[c(3,2,10,6,1,5)]))
        g <- g * theme_bw()
-       ggsave(paste0(outputFolder,"/MTfraction.png"),plot = g, device = NULL,width = 5,dpi=300)
+       ggsave(paste0(outputFolder,"/MTfraction.png"),plot = g, device = NULL,width = 5,height=4,dpi=300)
     }
     g1 <- ggplot()
     g1 <- g1+ geom_point(aes(x=object@spatial_locs$sdimx,y=object@spatial_locs$sdimy,color=spotsvalue),pch = 20, size = 1500/Nspots)
