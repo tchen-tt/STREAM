@@ -26,6 +26,4 @@ dependencies:
   - bioconductor-scater=1.20.0=r41hdfd78af_0
   - bioconductor-singlecellexperiment=1.14.1=r41hdfd78af_0 
   - scikit-learn=0.22
-  - NaiveDE
-  - spatialde
   - patsy
