@@ -1,0 +1,43 @@
+package:
+  name: STREAM
+  version: 0.1.0
+build:
+  skip: True 
+source:
+  git_url: https://github.com/YeehanXiao/STREAM.git
+requirements:
+  build:
+    - python = 3.9
+  run:
+    - python
+    - curl=7.78.0=hea6ffbf_0
+    - openssl=1.1.1k=h7f98852_0
+    - udunits2=2.2.27.27=h975c496_1
+    - r=4.1=r41hd8ed1ab_1004
+    - r-curl=4.3.2=r41hcfec24a_0
+    - r-smfishHmrf
+    - r-devtools=2.4.2=r41hc72bb7e_0
+    - r-fs=1.5.0=r41h03ef668_0
+    - r-magick=2.7.2=r41h03ef668_1
+    - r-mgcv=1.8_36=r41he454529_0
+    - r-openssl=1.4.4=r41he36bf35_0
+    - r-roxygen2=7.1.1=r41h03ef668_0
+    - r-sf=1.0_2=r41h41e2acd_0
+    - r-units=0.7_2=r41h03ef668_0
+    - r-utf8=1.2.2=r41hcfec24a_0
+    - r-magick=2.7.2=r41h03ef668_1
+    - r-gmp=0.6_2=r41h03ef668_0 
+    - r-biocmanager=1.30.16=r41hc72bb7e_0
+    - bioconductor-scran=1.20.1=r41h399db7b_0
+    - bioconductor-schot=1.4.0=r41hdfd78af_0
+    - bioconductor-scater=1.20.0=r41hdfd78af_0
+    - bioconductor-singlecellexperiment=1.14.1=r41hdfd78af_0 
+    - scikit-learn=0.22
+    - NaiveDE
+    - spatialde
+    - patsy
+    
+
+
+  
+
