@@ -69,9 +69,10 @@ QCplot=function(object,outputFolder=NULL,...){
    if(is.null(outputFolder)&!is.null(object@instructions$save_dir)){
       outputFolder=object@instructions$save_dir
    }
-    spotsvalue=log(colSums(object@raw_exprs),base = 10)
+    spotsvalue=log(colSums(as.matrix(object@raw_exprs)),base = 10)
     genesvalue=log(apply(object@raw_exprs,2,function(x){length(which(x!=0))}),base =10)
     mitoindex=grep("mt-",rownames(object@raw_exprs))
+    Nspots=ncol(object@raw_exprs)
     if(length(mitoindex)<5) {
       print("Little mito genes detected")
       } else{
@@ -83,7 +84,6 @@ QCplot=function(object,outputFolder=NULL,...){
        g <- g * theme_bw()
        ggsave(paste0(outputFolder,"/MTfraction.png"),plot = g, device = NULL,width = 5,dpi=300)
     }
-    Nspots=ncol(object@raw_exprs)
     g1 <- ggplot()
     g1 <- g1+ geom_point(aes(x=object@spatial_locs$sdimx,y=object@spatial_locs$sdimy,color=spotsvalue),pch = 20, size = 1500/Nspots)
     g1 <- g1 + labs(x = "x", y = "y", title="Counts per spot")
