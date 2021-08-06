@@ -1,8 +1,3 @@
----
-title: "README.md"
-author: "YihanXiao"
-date: "8/2/2021"
----
 
 
 # **STREAM**: **S**patial **t**ranscriptomics data **a**nalysis and **m**odeling
