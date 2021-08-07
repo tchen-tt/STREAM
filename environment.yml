@@ -25,5 +25,6 @@ dependencies:
   - bioconductor-schot=1.4.0=r41hdfd78af_0
   - bioconductor-scater=1.20.0=r41hdfd78af_0
   - bioconductor-singlecellexperiment=1.14.1=r41hdfd78af_0 
+  - bioconductor-clusterProfiler
   - scikit-learn=0.22
   - patsy
