@@ -14,7 +14,7 @@ SPADE is composed of for following parts: **Initialization**, **Preprocessing**,
 ```{bash}
 $ git clone https://github.com/YeehanXiao/STREAM.git
 $ cd STREAM
-$ conda env create -f enviroment.yml
+$ conda env create -f environment.yml
 $ conda activate STREAM
 $ pip3 install NaiveDE
 $ pip3 install spatialde
